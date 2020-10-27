@@ -1,0 +1,68 @@
+body {
+    background-color: #1e1e1e;
+}
+
+h1 {   
+    font-family: "Times New Roman", Times, serif;
+    color: #ffffff;
+    font-size: 120;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    padding-right: 155px;
+    padding-left: 155px;
+    text-shadow: 3px 3px #777777;
+    background-color: #333333;
+    border: #444444;
+    border-width: 7px;
+    border-style: solid;
+    border-radius: 10px;
+    filter: blur(1px);
+    width: max-content ;
+}
+
+h3 {   
+    font-family: "Times New Roman", Times, serif;
+    color:  #ffffff;
+    font-size: 48;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #333333;
+    border: #444444;
+    border-width: 7px;
+    border-style: solid;
+    border-radius: 10px;
+    filter: blur(1px); 
+}
+
+.backgroundCanvas{
+    box-shadow: 5px 5px 10px #444444;
+    border-radius: 50px;
+    filter: blur(2px); 
+    
+    position: fixed;
+    touch-action: none;
+    top:10;
+    left:10;
+}
+
+.gameCanvas{
+    box-shadow: 5px 5px 10px #444444;
+    border-radius: 50px;
+    filter: blur(2px); 
+    margin-left: 30px;
+    float: left;
+    opacity: 0.85;
+}
+
+.nextShapeCanvas{
+    box-shadow: 5px 5px 10px #444444;
+    border-radius: 50px;
+    filter: blur(2px); 
+    margin: 20px;
+}
+
+.info{
+    float: left;
+    margin-left: 20px;
+}

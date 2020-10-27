@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tetris Clone!</title>
+        <link rel="stylesheet" href="style.css">
+
+        <script src="render.js" type="text/javascript" defer="defer"></script>	
+	    <script src="main.js" type="text/javascript" defer="defer"></script>	
+    </head>
+    
+    <body>
+        <canvas id="backgroundCanvas" width="700" height="1000" class="backgroundCanvas">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+
+        <h1> Tetris</h1>
+        
+        <canvas id="gameCanvas" width="400" height="800" class="gameCanvas">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+
+        <section class="Info">
+            <h3 id="linesLabel">Lines - 0</h3>
+            <h3 id="levelLabel">Level - 1</h3>
+    
+            <canvas id="nextShapeCanvas" width="160" height="160" class="nextShapeCanvas">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+        </section>
+    </body> 
+</html>
