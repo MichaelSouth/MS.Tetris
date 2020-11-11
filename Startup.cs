@@ -18,7 +18,7 @@ namespace MS.Tetris
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDefaultFiles();
-            app.UseStaticFiles();
+            app.UseStaticFiles(); // For the wwwroot folder
 
             app.Run(async (context) =>
             {
