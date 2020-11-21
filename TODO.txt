@@ -1,4 +1,3 @@
-Highscore system
 Show controls
 Fix rotated block detection on thee sides were block gets stuck 
 Smooth fall animation

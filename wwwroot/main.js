@@ -74,10 +74,77 @@ document.onkeypress = function (e) {
 	}
 };
 
-startGame();
+showHighScores();
+
+function showHighScores() {
+	document.getElementById("highScores").style.display = "initial";
+	document.getElementById("gameCanvas").style.display = "none";
+	document.getElementById("gameInfoPanel").style.display = "none";
+
+	var ulScores = document.getElementById("scores");
+	while (ulScores.firstChild) {
+		ulScores.removeChild(ulScores.firstChild)
+	}
+
+	fetch('/api/highscore')
+		.then(response => response.json())
+		.then(data => {
+			console.log(data);
+			var ulScores = document.getElementById("scores");
+			for (var i = 0; i < data.length; i++) {
+				var obj = data[i];
+
+				console.log(obj.name);
+
+				var li = document.createElement("li");
+				li.appendChild(document.createTextNode(obj.name+" - "+obj.score));
+				ulScores.appendChild(li);
+			}});
+}
+
+function saveScore(newScore) {
+	console.log("Save Score");
+
+	var saveDialog = document.getElementById("saveDialog");
+
+	document.querySelector('#submitScoreButton').onclick = function () {
+		var nameTextBox = document.querySelector('#nameTextBox');
+
+		var highScoreModel = {
+			name: nameTextBox.value,
+			score: newScore
+		};
+
+		console.log(highScoreModel);
+
+		var response = fetch('/api/highscore', {
+			method: 'post',
+			headers: {
+				"Content-type": "application/json"
+			},
+			body: JSON.stringify(highScoreModel)
+		}).then(() => {
+			saveDialog.close();
+			showHighScores();
+		})
+	};
+
+	document.querySelector('#ignoreButton').onclick = function () {
+		saveDialog.close();
+		showHighScores();
+	};
+
+	//Show dialog
+	saveDialog.showModal();
+}
 
 function startGame() {
 	console.log("Start game");
+
+	document.getElementById("highScores").style.display = "none";
+	document.getElementById("gameCanvas").style.display = "initial";
+	document.getElementById("gameInfoPanel").style.display = "initial";
+
 	lines = 0;
 	level = 1;
 	x = columns / 2;
@@ -138,8 +205,13 @@ function processGame() {
 		angle = 0;
 		currentShape = getNextShape();
 
-		if (shapeIntersectWithBoard(x, y)){
-		 	startGame();
+		if (shapeIntersectWithBoard(x, y)) {
+
+			if (intervalId != undefined) {
+				window.clearInterval(intervalId);
+			}
+
+			saveScore(lines);
 		}
 	}
 	else

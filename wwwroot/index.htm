@@ -9,25 +9,39 @@
     <script src="shape.js" type="text/javascript" defer="defer"></script>
     <script src="main.js" type="text/javascript" defer="defer"></script>
 </head>
-    
-    <body>
-        <canvas id="backgroundCanvas" width="700" height="1000" class="backgroundCanvas">
+<body>
+    <canvas id="backgroundCanvas" width="700" height="1000" class="backgroundCanvas">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+
+    <h1> Tetris</h1>
+
+    <div id="highScores" class="highScores">
+        <h3>High Scores</h3>
+        <Ul id="scores"></Ul>
+        <button type="button" onclick="startGame()">START GAME</button>
+    </div>
+
+    <canvas id="gameCanvas" width="400" height="800" class="gameCanvas">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+
+    <section id="gameInfoPanel" class="Info">
+        <h3 id="linesLabel">Lines - 0</h3>
+        <h3 id="levelLabel">Level - 1</h3>
+
+        <canvas id="nextShapeCanvas" width="160" height="160" class="nextShapeCanvas">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
+    </section>
 
-        <h1> Tetris</h1>
-        
-        <canvas id="gameCanvas" width="400" height="800" class="gameCanvas">
-            Your browser does not support the HTML5 canvas tag.
-        </canvas>
+    <!-- The <dialog> element was added to HTML in version 5.2 -->
+    <dialog id="saveDialog">
+        <p>Enter your name and submit your score:</p>
 
-        <section class="Info">
-            <h3 id="linesLabel">Lines - 0</h3>
-            <h3 id="levelLabel">Level - 1</h3>
-    
-            <canvas id="nextShapeCanvas" width="160" height="160" class="nextShapeCanvas">
-                Your browser does not support the HTML5 canvas tag.
-            </canvas>
-        </section>
-    </body> 
+        <input id="nameTextBox" type="text" />
+        <button id="submitScoreButton">Submit Score</button>
+        <button id="ignoreButton">Ignore</button>
+    </dialog>
+</body>
 </html>

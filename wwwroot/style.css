@@ -1,10 +1,11 @@
 body {
     background-color: #1e1e1e;
+    color: #ffffff;
 }
 
 h1 {   
     font-family: "Times New Roman", Times, serif;
-    color: #ffffff;
+
     font-size: 120;
     margin-top: 30px;
     margin-left: 30px;
@@ -35,24 +36,52 @@ h3 {
     filter: blur(1px); 
 }
 
+dialog {
+    background-color: #1e1e1e;
+    border: solid gray 2px;
+    border-radius: 10px;
+    color: #ffffff;
+}
+
+button {
+    background-color: #1e1e1e;
+    border: solid gray 2px;
+    padding: 10px;
+    color: #ffffff;
+}
+
 .backgroundCanvas{
     box-shadow: 5px 5px 10px #444444;
     border-radius: 50px;
     filter: blur(2px); 
     
     position: fixed;
-    touch-action: none;
-    top:10;
-    left:10;
+    top: 10px;
+    left: 10px;
 }
 
-.gameCanvas{
+.gameCanvas {
     box-shadow: 5px 5px 10px #444444;
     border-radius: 50px;
-    filter: blur(2px); 
+    filter: blur(2px);
     margin-left: 30px;
     float: left;
     opacity: 0.85;
+    text-align: center;
+}
+
+.highScores {
+    border: 20px solid #1e1e1e;
+    border-radius: 50px;
+    margin-left: 30px;
+    float: left;
+    background-color: #1e1e1e;
+    opacity: 0.85;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 550px;
+    font-size: 20px;
 }
 
 .nextShapeCanvas{

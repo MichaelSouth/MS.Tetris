@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="HighScore" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="TODO.txt" />
   </ItemGroup>
 
