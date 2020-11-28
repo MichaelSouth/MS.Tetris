@@ -1,5 +1,6 @@
 const rows = 20;
 const columns = 10; 
+const inputType = Object.freeze({ Left: 0, Down: 1, Right: 2, RotateLeft: 3, RotateRight: 4 });
 
 var shape1 = new Shape("#FF0000","#770000", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(3,0)]);
 var shape2 = new Shape("#00FF00","#007700", [new Point(0,0), new Point(1,0),new Point(0,1),new Point(1,1)]);
@@ -19,62 +20,92 @@ var level
 var speed;
 var intervalId;
 
+showHighScores();
+
 document.onkeypress = function (e) {
     e = e || window.event;
-	//console.log(e.key);
+	var input;
+
+	if (e.key == "a") {
+		input = inputType.Left;
+		processInput(input); 
+	}
+
+	if (e.key == "d") {
+		input = inputType.Right;
+		processInput(input); 
+	}
+
+	if (e.key == "s") {
+		input = inputType.Down;
+		processInput(input); 
+	}
+
+	if (e.key == "<" || e.key == ",") {
+		input = inputType.RotateLeft;
+		processInput(input); 
+	}
+
+	if (e.key == ">" || e.key == ".") {	
+		input = inputType.RotateRight;
+		processInput(input); 
+	}
+};
+
+function processInput(input) {
 	var draw = false;
 
-	if (e.key == "a"){
-		if (!shapeIntersectWithBoard(x-1, y)){
-			x = x - 1;
+	switch (input) {
+		case inputType.Left:
+			if (!shapeIntersectWithBoard(x - 1, y)) {
+				x = x - 1;
+				draw = true;
+			}
+			break;
+
+		case inputType.Right:
+			if (!shapeIntersectWithBoard(x + 1, y)) {
+				x = x + 1;
+				draw = true;
+			}
+			break;
+
+		case inputType.Down:
+			if (!shapeIntersectWithBoard(x, y + 1)) {
+				y = y + 1
+				draw = true;
+			}
+			break;
+
+		case inputType.RotateLeft:
+			angle = angle - 1;
+
+			if (angle < 0) {
+				angle = 3;
+			}
+
 			draw = true;
-		}
-	}
+			currentShape.rotateShape90Degrees();
+			break;
 
-	if (e.key == "d"){
-		if (!shapeIntersectWithBoard(x+1, y)){
-			x = x + 1;
+		case inputType.RotateRight:
+			angle = angle + 1;
+
+			if (angle > 3) {
+				angle = 0;
+			}
+
 			draw = true;
-		}
+			currentShape.rotateShape90Degrees();
+			break;
 	}
 
-	if (e.key == "s"){
-		if (!shapeIntersectWithBoard(x, y+1)){
-			y = y +1
-			draw = true;
-		}
-	}
-
-	if (e.key == "<" || e.key == ","){
-		angle = angle - 1;
-
-		if (angle < 0){
-			angle  = 3;
-		}
-
-		draw = true;
-		rotateShape90Degrees(currentShape);
-	}
-
-	if (e.key == ">"|| e.key == "."){		
-		angle = angle + 1;
-
-		if (angle > 3){
-			angle  = 0;
-		}
-		
-		draw = true;
-		rotateShape90Degrees(currentShape);
-	}
-
-	if (draw){
+	if (draw) {
 		var canvas = document.getElementById("gameCanvas");
 		drawBoard(canvas);
 		drawShape(canvas, currentShape, x, y, null);
 	}
-};
-
-showHighScores();
+}
 
 function showHighScores() {
 	document.getElementById("highScores").style.display = "initial";
@@ -296,52 +327,6 @@ function drawBoard(canvas){
 			}
 		}
 	}
-}
-
-function rotateShape90Degrees(shape){
-	console.log("rotateShape90Degrees");
-	for (var i = 0; i < shape.points.length; i++) {
-		shape.points[i] = rotatePoint90Degrees(shape.points[i]);
-	}
-}
-
-function rotatePoint90Degrees(point){
-	// 0,0 = 3,0 
-	// 1,0 = 3,1 
-	// 2,0 = 3,2 
-	// 3,0 = 3,3 
-
-	// 0,1 = 2,0
-	// 1,1 = 2,1 
-	// 2,1 = 2,2 
-	// 3,1 = 2,3 
-
-	// 0,2 = 1,0 
-	// 1,2 = 1,1 
-	// 2,2 = 1,2 
-	// 3,2 = 1,3 
-
-	// 0,3 = 0,0 
-	// 1,3 = 0,1 
-	// 2,3 = 0,2 
-	// 3,3 = 0,3 
-	var tempX, tempY;
-
-	tempY = point.x;
-	if (point.y == 0){
-		tempX = 3;
-	}
-	if (point.y == 1){
-		tempX = 2;
-	}
-	if (point.y == 2){
-		tempX = 1;
-	}
-	if (point.y == 3){
-		tempX = 0;
-	}
-
-	return new Point(tempX, tempY);
 }
 
 function copyShapeToArray(shape){

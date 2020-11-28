@@ -1,4 +1,3 @@
-Show controls
-Fix rotated block detection on thee sides were block gets stuck 
+Fix rotated block detection on the sides where block gets stuck 
 Smooth fall animation
 Count down timer

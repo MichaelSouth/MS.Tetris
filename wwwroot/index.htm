@@ -33,6 +33,19 @@
         <canvas id="nextShapeCanvas" width="160" height="160" class="nextShapeCanvas">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
+
+        <div id="controlsPanel">
+            <h3 id="linesLabel">Controls</h3>
+            <div>
+                <button id="leftButton" type="button" onclick="processInput(inputType.Left); ">Left</button>
+                <button id="downButton" type="button" onclick="processInput(inputType.Down);">Down</button>
+                <button id="rightButton" type="button" onclick="processInput(inputType.Right);">Right</button>
+            </div>
+            <div>
+                <button id="rotateLeftButton" type="button" onclick="processInput(inputType.RotateLeft);">Rotate Left</button>
+                <button id="rotateRightButton" type="button" onclick="processInput(inputType.RotateRight);">Rotate Right</button>
+            </div>
+         </div>
     </section>
 
     <!-- The <dialog> element was added to HTML in version 5.2 -->
