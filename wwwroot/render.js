@@ -1,17 +1,17 @@
-var gl;
-var indices;
-var shaderTime ; 
+let gl;
+let indices;
+let shaderTime ; 
 
 //Shader variables
-var locationOfTime;
-var locationOfMouse;
+let locationOfTime;
+let locationOfMouse;
 
-var elapsedTime = 0;
-var frameCount = 0;
-var lastTime = 0;
-var renderLoopRunning = false;
-var mouseX = 0;
-var mouseY = 0;
+let elapsedTime = 0;
+let frameCount = 0;
+let lastTime = 0;
+let renderLoopRunning = false;
+let mouseX = 0;
+let mouseY = 0;
 
 initiateWebGl("precision highp float; \
 uniform float time; \
@@ -57,18 +57,18 @@ void main() \
 //     }    \
 // }");
 
-if (renderLoopRunning == false){
+if (renderLoopRunning === false){
     renderLoopRunning = true;
     renderLoop();
 }
 
 function initiateWebGl(fragCode) {
     //Prepare the canvas and get WebGL context 
-    var canvas = document.getElementById('backgroundCanvas');
+    let canvas = document.getElementById('backgroundCanvas');
     gl = canvas.getContext('webgl');
 
     //Define the geometry and store it in buffer objects 
-    var vertices = [
+    let vertices = [
                         -1.0,1.0,0.0,
                         -1.0,-1.0,0.0,
                         1.0,-1.0,0.0,
@@ -78,7 +78,7 @@ function initiateWebGl(fragCode) {
     indices= [3, 2, 1, 3, 1, 0]; 
 
     // Create a new buffer object
-    var vertex_buffer = gl.createBuffer();
+    let vertex_buffer = gl.createBuffer();
 
     // Bind an empty array buffer to it
     gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
@@ -90,7 +90,7 @@ function initiateWebGl(fragCode) {
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
     // Create an empty buffer object to store Index buffer
-    var Index_Buffer = gl.createBuffer();
+    let Index_Buffer = gl.createBuffer();
 
     // Bind appropriate array buffer to it
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer);
@@ -104,12 +104,12 @@ function initiateWebGl(fragCode) {
     //Create and compile Shader programs 
 
     // Vertex shader source code
-    var vertCode =
+    let vertCode =
     'attribute vec3 coordinates;' + 
     'void main(void) {' + ' gl_Position = vec4(coordinates, 1.0);' + '}';
 
     //Create a vertex shader object
-    var vertShader = gl.createShader(gl.VERTEX_SHADER);
+    let vertShader = gl.createShader(gl.VERTEX_SHADER);
 
     //Attach vertex shader source code
     gl.shaderSource(vertShader, vertCode);
@@ -118,7 +118,7 @@ function initiateWebGl(fragCode) {
     gl.compileShader(vertShader);
 
     // Create fragment shader object
-    var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+    let fragShader = gl.createShader(gl.FRAGMENT_SHADER);
     shaderTime  = 0.0;
 
     // Attach fragment shader source code
@@ -128,7 +128,7 @@ function initiateWebGl(fragCode) {
     gl.compileShader(fragShader);
 
     // Create a shader program object to store combined shader program
-    var shaderProgram = gl.createProgram();
+    let shaderProgram = gl.createProgram();
 
     // Attach a vertex shader
     gl.attachShader(shaderProgram, vertShader); 
@@ -146,7 +146,7 @@ function initiateWebGl(fragCode) {
 
     gl.uniform1f(locationOfTime, shaderTime);
 
-    var locationOfResolution = gl.getUniformLocation(shaderProgram, "resolution");
+    let locationOfResolution = gl.getUniformLocation(shaderProgram, "resolution");
 
     gl.uniform2f(locationOfResolution, canvas.width, canvas.height);
 
@@ -163,7 +163,7 @@ function initiateWebGl(fragCode) {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, Index_Buffer); 
 
     //Get the attribute location
-    var coord = gl.getAttribLocation(shaderProgram, "coordinates");
+    let coord = gl.getAttribLocation(shaderProgram, "coordinates");
 
     //point an attribute to the currently bound VBO
     gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
@@ -185,7 +185,7 @@ function initiateWebGl(fragCode) {
 }
 
 function renderLoop(){
-    var animate = function(time) {
+    let animate = function(time) {
         // Draw the quad
         gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0); 
 
@@ -194,7 +194,7 @@ function renderLoop(){
         gl.uniform1f(locationOfTime, shaderTime);
         gl.uniform2f(locationOfMouse, mouseX, mouseY);
 
-        var now = new Date().getTime();
+        let now = new Date().getTime();
 
         frameCount++;
         elapsedTime += (now - lastTime);

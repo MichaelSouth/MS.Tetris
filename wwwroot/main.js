@@ -2,58 +2,58 @@ const rows = 20;
 const columns = 10; 
 const inputType = Object.freeze({ Left: 0, Down: 1, Right: 2, RotateLeft: 3, RotateRight: 4 });
 
-var shape1 = new Shape("#FF0000","#770000", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(3,0)]);
-var shape2 = new Shape("#00FF00","#007700", [new Point(0,0), new Point(1,0),new Point(0,1),new Point(1,1)]);
-var shape3 = new Shape("#0000FF","#000077", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(2,1)]);
-var shape4 = new Shape("#FF00FF","#770077", [new Point(0,0), new Point(1,0),new Point(1,1),new Point(2,1)]);
-var shape5 = new Shape("#FFFF00","#777700", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(1,1)]);
-var shape6 = new Shape("#00FFFF","#007777", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(0,1)]);
-var shape7 = new Shape("#FFFFFF","#777777", [new Point(0,0), new Point(0,1),new Point(1,1),new Point(1,2)]);
-var currentShape;
-var  nextShape;
-var x;
-var y;
-var angle;
-var gameBoard;
-var lines
-var level
-var speed;
-var intervalId;
+let shape1 = new Shape("#FF0000","#770000", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(3,0)]);
+let shape2 = new Shape("#00FF00","#007700", [new Point(0,0), new Point(1,0),new Point(0,1),new Point(1,1)]);
+let shape3 = new Shape("#0000FF","#000077", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(2,1)]);
+let shape4 = new Shape("#FF00FF","#770077", [new Point(0,0), new Point(1,0),new Point(1,1),new Point(2,1)]);
+let shape5 = new Shape("#FFFF00","#777700", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(1,1)]);
+let shape6 = new Shape("#00FFFF","#007777", [new Point(0,0), new Point(1,0),new Point(2,0),new Point(0,1)]);
+let shape7 = new Shape("#FFFFFF","#777777", [new Point(0,0), new Point(0,1),new Point(1,1),new Point(1,2)]);
+let currentShape;
+let  nextShape;
+let x;
+let y;
+let angle;
+let gameBoard;
+let lines
+let level
+let speed;
+let intervalId;
 
 showHighScores();
 
 document.onkeypress = function (e) {
     e = e || window.event;
-	var input;
+	let input;
 
-	if (e.key == "a") {
+	if (e.key === "a") {
 		input = inputType.Left;
 		processInput(input); 
 	}
 
-	if (e.key == "d") {
+	if (e.key === "d") {
 		input = inputType.Right;
 		processInput(input); 
 	}
 
-	if (e.key == "s") {
+	if (e.key === "s") {
 		input = inputType.Down;
 		processInput(input); 
 	}
 
-	if (e.key == "<" || e.key == ",") {
+	if (e.key === "<" || e.key === ",") {
 		input = inputType.RotateLeft;
 		processInput(input); 
 	}
 
-	if (e.key == ">" || e.key == ".") {	
+	if (e.key === ">" || e.key === ".") {	
 		input = inputType.RotateRight;
 		processInput(input); 
 	}
 };
 
 function processInput(input) {
-	var draw = false;
+	let draw = false;
 
 	switch (input) {
 		case inputType.Left:
@@ -101,7 +101,7 @@ function processInput(input) {
 	}
 
 	if (draw) {
-		var canvas = document.getElementById("gameCanvas");
+		let canvas = document.getElementById("gameCanvas");
 		drawBoard(canvas);
 		drawShape(canvas, currentShape, x, y, null);
 	}
@@ -112,7 +112,7 @@ function showHighScores() {
 	document.getElementById("gameCanvas").style.display = "none";
 	document.getElementById("gameInfoPanel").style.display = "none";
 
-	var ulScores = document.getElementById("scores");
+	let ulScores = document.getElementById("scores");
 	while (ulScores.firstChild) {
 		ulScores.removeChild(ulScores.firstChild)
 	}
@@ -121,13 +121,13 @@ function showHighScores() {
 		.then(response => response.json())
 		.then(data => {
 			console.log(data);
-			var ulScores = document.getElementById("scores");
-			for (var i = 0; i < data.length; i++) {
-				var obj = data[i];
+			let ulScores = document.getElementById("scores");
+			for (let i = 0; i < data.length; i++) {
+				let obj = data[i];
 
 				console.log(obj.name);
 
-				var li = document.createElement("li");
+				let li = document.createElement("li");
 				li.appendChild(document.createTextNode(obj.name+" - "+obj.score));
 				ulScores.appendChild(li);
 			}});
@@ -136,19 +136,19 @@ function showHighScores() {
 function saveScore(newScore) {
 	console.log("Save Score");
 
-	var saveDialog = document.getElementById("saveDialog");
+	let saveDialog = document.getElementById("saveDialog");
 
 	document.querySelector('#submitScoreButton').onclick = function () {
-		var nameTextBox = document.querySelector('#nameTextBox');
+		let nameTextBox = document.querySelector('#nameTextBox');
 
-		var highScoreModel = {
+		let highScoreModel = {
 			name: nameTextBox.value,
 			score: newScore
 		};
 
 		console.log(highScoreModel);
 
-		var response = fetch('/api/highscore', {
+		let response = fetch('/api/highscore', {
 			method: 'post',
 			headers: {
 				"Content-type": "application/json"
@@ -186,7 +186,7 @@ function startGame() {
 
 	initialiseBoard();
 
-	var canvas = document.getElementById("gameCanvas");
+	let canvas = document.getElementById("gameCanvas");
 	drawBoard(canvas);
 
 	displayLines(lines);
@@ -199,7 +199,7 @@ function startGame() {
 function setGameSpeed(speed){
 	console.log("Set game speed "+speed+"ms");
 
-	if (intervalId != undefined){
+	if (intervalId !== undefined){
 		window.clearInterval(intervalId);
 	}
 	
@@ -208,10 +208,10 @@ function setGameSpeed(speed){
 
 function initialiseBoard() {
 	gameBoard = new Array(rows);
-	for (var i = 0; i < gameBoard.length; i++) {
-		var columnVals = new Array(columns);
+	for (let i = 0; i < gameBoard.length; i++) {
+		let columnVals = new Array(columns);
 
-		for (var j = 0; j < columns; j++) {
+		for (let j = 0; j < columns; j++) {
 			columnVals[j] = null;
 		}
 
@@ -222,7 +222,7 @@ function initialiseBoard() {
 function processGame() {
 	//console.log("processGame")
 
-	var canvas = document.getElementById("gameCanvas");
+	let canvas = document.getElementById("gameCanvas");
 	drawBoard(canvas);
 	drawShape(canvas, currentShape, x, y, null);
 
@@ -238,7 +238,7 @@ function processGame() {
 
 		if (shapeIntersectWithBoard(x, y)) {
 
-			if (intervalId != undefined) {
+			if (intervalId !== undefined) {
 				window.clearInterval(intervalId);
 			}
 
@@ -252,12 +252,12 @@ function processGame() {
 }
 
 function checkForCompleteLines(){
-	for (var i = 0; i < gameBoard.length; i++) {
-		var columnVals = gameBoard[i];
-	    var lineComplete = true;
+	for (let i = 0; i < gameBoard.length; i++) {
+		let columnVals = gameBoard[i];
+		let lineComplete = true;
 
-		for (var j = 0; j < columns; j++) {
-			if (columnVals[j] == null){
+		for (let j = 0; j < columns; j++) {
+			if (columnVals[j] === null){
 				lineComplete = false;
 				break;
 			}
@@ -269,21 +269,21 @@ function checkForCompleteLines(){
 			displayLines(lines);
 			
 			//Copy above lines down
-			for (var k = i; k  > 0 ; k--) {
+			for (let k = i; k  > 0 ; k--) {
 				gameBoard[k] = gameBoard[k-1];
 			}
 
 			//Clear top line
-			var columnVals = new Array(columns);
+			let columnVals = new Array(columns);
 
-			for (var l = 0; l < columns; l++) {
+			for (let l = 0; l < columns; l++) {
 				columnVals[l] = null;
 			}
 
 			gameBoard[0] = columnVals
 
 			//Update game speed
-			if (lines % 5 == 0){
+			if (lines % 5 === 0){
 				if (speed>= 50) {
 					speed = speed - 50;
 					level = level+1;
@@ -298,19 +298,19 @@ function checkForCompleteLines(){
 
 function displayLines(lines){
 	console.log("Lines "+lines);
-	var linesLabel = document.getElementById("linesLabel");
+	let linesLabel = document.getElementById("linesLabel");
 	linesLabel.innerHTML = "Lines - "+lines;
 }
 
 function displayLevel(level){
 	console.log("Level "+level);
-	var linesLabel = document.getElementById("levelLabel");
+	let linesLabel = document.getElementById("levelLabel");
 	linesLabel.innerHTML = "Level - "+level;
 }
 
 function clearBoard(canvas){
 	//console.log("clearBoard")
-	var ctx = canvas.getContext("2d");
+	let ctx = canvas.getContext("2d");
 	ctx.fillStyle = "#000000";
 	ctx.fillRect(0, 0, canvas.width, canvas.height );
 }
@@ -319,10 +319,10 @@ function drawBoard(canvas){
 	//console.log("drawBoard")
 	clearBoard(canvas);
 
-	for (var tempY = 0; tempY < rows; tempY++) {
-		for (var tempX = 0; tempX < columns; tempX++) {
-			var tempShape = getBoardValue(tempX, tempY);
-			if (tempShape != null){
+	for (let tempY = 0; tempY < rows; tempY++) {
+		for (let tempX = 0; tempX < columns; tempX++) {
+			let tempShape = getBoardValue(tempX, tempY);
+			if (tempShape !== null){
 				drawBox(canvas, tempX, tempY, tempShape.colour, tempShape.colour2, null);
 			}
 		}
@@ -330,15 +330,15 @@ function drawBoard(canvas){
 }
 
 function copyShapeToArray(shape){
-	for (var i = 0; i < shape.points.length; i++) {
+	for (let i = 0; i < shape.points.length; i++) {
 		setBoardValue(shape.points[i].x+x, shape.points[i].y+y, shape);
 	}
 }
 
 function shapeIntersectWithBoard(tempX, tempY){
-	var result = false;
+	let result = false;
 
-	for (var i = 0; i < currentShape.points.length; i++) {
+	for (let i = 0; i < currentShape.points.length; i++) {
 		if (currentShape.points[i].y+tempY >= (rows)){
 			return true;
 		}
@@ -351,7 +351,7 @@ function shapeIntersectWithBoard(tempX, tempY){
 			return true;
 		}
 	
-		if (getBoardValue(currentShape.points[i].x+tempX, currentShape.points[i].y+tempY) != null){
+		if (getBoardValue(currentShape.points[i].x+tempX, currentShape.points[i].y+tempY) !== null){
 			return true;
 		}
 	}
@@ -360,39 +360,39 @@ function shapeIntersectWithBoard(tempX, tempY){
 }
 
 function setBoardValue(x, y, shape){
-	var columnVals = gameBoard[y];
+	let columnVals = gameBoard[y];
 	columnVals[x] = shape;
 }
 
 function getBoardValue(x, y){
-	var columnVals = gameBoard[y];
+	let columnVals = gameBoard[y];
 	return columnVals[x];
 }
 
 function getNextShape(){
-	var shape;
+	let shape;
 
-	if (nextShape == undefined){
+	if (nextShape === undefined){
 		nextShape = getShape();
 	}
 
 	shape = nextShape;
 	nextShape = getShape();
 
-	var canvas = document.getElementById("nextShapeCanvas");
+	let canvas = document.getElementById("nextShapeCanvas");
 
 	clearBoard(canvas);
 
-	var point = nextShape.calcBottomRight();
+	let point = nextShape.calcBottomRight();
 	drawShape(canvas, nextShape, 0, 0, point);
 
 	return shape;
 }
 
 function getShape(){
-	var val = Math.floor(Math.random() * 7);
+	let val = Math.floor(Math.random() * 7);
 	console.log("Get next shape = "+val);
-	var shape = null;
+	let shape = null;
 
 	switch (val) {
 		case 0:
@@ -423,32 +423,32 @@ function getShape(){
 }
 
 function drawShape(canvas, shape, xOffset, yOffset, bottomRight) {
-	for (var i = 0; i < shape.points.length; i++) {
+	for (let i = 0; i < shape.points.length; i++) {
 		drawBox(canvas, shape.points[i].x+xOffset, shape.points[i].y+yOffset, shape.colour, shape.colour2, bottomRight);
 	}
 }
 
 function drawBox(canvas, x, y, colour, colour2, bottomRight){
-	var ctx = canvas.getContext("2d");
-	var gameCanvas = document.getElementById("gameCanvas");
-	var pixelWidth = gameCanvas.width/columns;
-	var pixelHeight = gameCanvas.height/rows;
+	let ctx = canvas.getContext("2d");
+	let gameCanvas = document.getElementById("gameCanvas");
+	let pixelWidth = gameCanvas.width/columns;
+	let pixelHeight = gameCanvas.height/rows;
 	//ctx.fillStyle = colour;
 	
-	var xPixelOffset = 0;
-	var yPixelOffset = 0;
+	let xPixelOffset = 0;
+	let yPixelOffset = 0;
 
-	if (bottomRight != null){
-		var bottomRightPixelsX = ((bottomRight.x+1) * pixelWidth)/2;
-		var bottomRightPixelsY = ((bottomRight.y+1) * pixelHeight)/2;
+	if (bottomRight !== null){
+		let bottomRightPixelsX = ((bottomRight.x+1) * pixelWidth)/2;
+		let bottomRightPixelsY = ((bottomRight.y+1) * pixelHeight)/2;
 		xPixelOffset = canvas.width/2 - (bottomRightPixelsX);
 		yPixelOffset = canvas.height/2 - (bottomRightPixelsY);
 	}
 
-	var tempX = ((pixelWidth )*x) + xPixelOffset;
-	var tempY = ((pixelHeight )*y) + yPixelOffset;
+	let tempX = ((pixelWidth )*x) + xPixelOffset;
+	let tempY = ((pixelHeight )*y) + yPixelOffset;
 
-	var my_gradient = ctx.createLinearGradient(tempX, tempY, tempX+pixelWidth, tempY+pixelHeight);
+	let my_gradient = ctx.createLinearGradient(tempX, tempY, tempX+pixelWidth, tempY+pixelHeight);
 	my_gradient.addColorStop(0, colour);
 	my_gradient.addColorStop(1, colour2);
 	ctx.fillStyle = my_gradient;

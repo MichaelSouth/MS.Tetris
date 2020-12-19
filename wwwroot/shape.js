@@ -6,9 +6,9 @@
 	}
 
 	calcBottomRight() {
-		var bottomRight = new Point(0, 0);
+		let bottomRight = new Point(0, 0);
 
-		for (var i = 0; i < this.points.length; i++) {
+		for (let i = 0; i < this.points.length; i++) {
 			if (this.points[i].x >= bottomRight.x && this.points[i].y >= bottomRight.y) {
 				bottomRight = this.points[i];
 			}
@@ -19,7 +19,7 @@
 
 	rotateShape90Degrees() {
 		console.log("rotateShape90Degrees");
-		for (var i = 0; i < this.points.length; i++) {
+		for (let i = 0; i < this.points.length; i++) {
 			this.points[i] = this.rotatePoint90Degrees(this.points[i]);
 		}
 	}
@@ -44,19 +44,19 @@
 		// 1,3 = 0,1 
 		// 2,3 = 0,2 
 		// 3,3 = 0,3 
-		var tempX, tempY;
+		let tempX, tempY;
 
 		tempY = point.x;
-		if (point.y == 0) {
+		if (point.y === 0) {
 			tempX = 3;
 		}
-		if (point.y == 1) {
+		if (point.y === 1) {
 			tempX = 2;
 		}
-		if (point.y == 2) {
+		if (point.y === 2) {
 			tempX = 1;
 		}
-		if (point.y == 3) {
+		if (point.y === 3) {
 			tempX = 0;
 		}
 
@@ -64,8 +64,8 @@
 	}
 
 	clone() {
-		var tempPoints = new Array(this.points);
-		for (var i = 0; i < this.points.length; i++) {
+		let tempPoints = new Array(this.points);
+		for (let i = 0; i < this.points.length; i++) {
 			tempPoints[i] = new Point(this.points[i].x, this.points[i].y)
 		}
 
