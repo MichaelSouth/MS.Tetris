@@ -6,6 +6,7 @@ let shaderTime ;
 let locationOfTime;
 let locationOfMouse;
 
+let fps = 0;
 let elapsedTime = 0;
 let frameCount = 0;
 let lastTime = 0;

@@ -1,4 +1,6 @@
-﻿class Shape {
+﻿import { Point } from '/Point.js';
+
+export class Shape {
 	constructor(colour, colour2, points) {
 		this.colour = colour;
 		this.colour2 = colour2;

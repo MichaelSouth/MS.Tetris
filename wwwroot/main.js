@@ -1,3 +1,8 @@
+import { Point } from '/Point.js';
+import { Shape } from '/Shape.js';
+
+export { startGame, processInput };
+
 const rows = 20;
 const columns = 10; 
 const inputType = Object.freeze({ Left: 0, Down: 1, Right: 2, RotateLeft: 3, RotateRight: 4 });
@@ -20,6 +25,12 @@ let level
 let speed;
 let intervalId;
 
+document.getElementById("startGameButton").addEventListener("click", startGame);
+document.getElementById("leftButton").addEventListener("click", function () { processInput(inputType.Left)});
+document.getElementById("downButton").addEventListener("click", function () { processInput(inputType.Down) });
+document.getElementById("rightButton").addEventListener("click", function () { processInput(inputType.Right) });
+document.getElementById("rotateLeftButton").addEventListener("click", function () { processInput(inputType.RotateLeft) });
+document.getElementById("rotateRightButton").addEventListener("click", function () { processInput(inputType.RotateRight) });
 showHighScores();
 
 document.onkeypress = function (e) {
